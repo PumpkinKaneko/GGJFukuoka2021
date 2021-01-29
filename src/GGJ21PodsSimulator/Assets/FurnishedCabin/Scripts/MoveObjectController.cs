@@ -6,8 +6,10 @@ public class MoveObjectController : MonoBehaviour
 	public float reachRange = 1.8f;			
 
 	private Animator anim;
-	private Camera fpsCam;
-	private GameObject player;
+
+	//private Camera fpsCam;
+	private Camera fpsCam { get { return Camera.main; } }
+	//private GameObject player;
 
 	private const string animBoolName = "isOpen_Obj_";
 
@@ -22,13 +24,13 @@ public class MoveObjectController : MonoBehaviour
 	void Start()
 	{
 		//Initialize moveDrawController if script is enabled.
-		player = GameObject.FindGameObjectWithTag("Player");
+		//player = GameObject.FindGameObjectWithTag("Player");
 
-		fpsCam = Camera.main;
-		if (fpsCam == null)	//a reference to Camera is required for rayasts
-		{
-			Debug.LogError("A camera tagged 'MainCamera' is missing.");
-		}
+		//fpsCam = Camera.main;
+		//if (fpsCam == null)	//a reference to Camera is required for rayasts
+		//{
+		//	Debug.LogError("A camera tagged 'MainCamera' is missing.");
+		//}
 
 		//create AnimatorOverrideController to re-use animationController for sliding draws.
 		anim = GetComponent<Animator>(); 
@@ -45,7 +47,8 @@ public class MoveObjectController : MonoBehaviour
 		
 	void OnTriggerEnter(Collider other)
 	{		
-		if (other.gameObject == player)		//player has collided with trigger
+		//if (other.gameObject == player)		//player has collided with trigger
+		if (other.gameObject.CompareTag("Player"))     //player has collided with trigger
 		{			
 			playerEntered = true;
 
@@ -54,7 +57,8 @@ public class MoveObjectController : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{		
-		if (other.gameObject == player)		//player has exited trigger
+		//if (other.gameObject == player)		//player has exited trigger
+		if (other.gameObject.CompareTag("Player"))     //player has exited trigger
 		{			
 			playerEntered = false;
 			//hide interact message as player may not have been looking at object when they left
@@ -74,7 +78,7 @@ public class MoveObjectController : MonoBehaviour
 			RaycastHit hit;
 
 			//if raycast hits a collider on the rayLayerMask
-			if (Physics.Raycast(rayOrigin,fpsCam.transform.forward, out hit,reachRange,rayLayerMask))
+			if (Physics.Raycast(rayOrigin,fpsCam.transform.forward, out hit,reachRange/*,rayLayerMask*/))
 			{
 				MoveableObject moveableObject = null;
 				//is the object of the collider player is looking at the same as me?

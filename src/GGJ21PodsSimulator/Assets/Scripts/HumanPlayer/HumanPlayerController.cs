@@ -38,7 +38,8 @@ public class HumanPlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        m_rot.x = transform.rotation.eulerAngles.y;
+        m_rot.y = m_camera_transform.localRotation.eulerAngles.x;
     }
 
     void Update()

@@ -6,8 +6,12 @@ using Photon.Realtime;
 
 public class HumanSampletScene : MonoBehaviourPunCallbacks
 {
+
     public string RoomName = "ConnectedRoom";
     public string PlayerPrefabName;
+
+    [SerializeField]
+    private Transform m_start_transform;
 
     private void Start()
     {
@@ -33,7 +37,7 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
     /// </summary>
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("Prefabs/" + PlayerPrefabName, Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate("Prefabs/" + PlayerPrefabName, m_start_transform.position, m_start_transform.rotation);
 
         base.OnJoinedRoom();
     }
