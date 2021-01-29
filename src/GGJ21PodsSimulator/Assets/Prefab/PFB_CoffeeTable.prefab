@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 5790038220777694133}
   - component: {fileID: 3321150396349821997}
   - component: {fileID: 3880156491833031530}
+  - component: {fileID: 3893171984176877877}
+  - component: {fileID: 8737490369790776430}
   m_Layer: 0
   m_Name: PFB_CoffeeTable
   m_TagString: Untagged
@@ -32,7 +34,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18237865252294983}
-  m_LocalRotation: {x: -0, y: -0.70818126, z: -0, w: -0.70603067}
+  m_LocalRotation: {x: -0, y: -0.7081817, z: 0, w: -0.70603025}
   m_LocalPosition: {x: 1.413, y: 0.128, z: 1.668}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -180,3 +182,42 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05762697, y: 0.4713562, z: 0.055367105}
   m_Center: {x: -0.34995043, y: 0.23567814, z: 0.1661901}
+--- !u!114 &3893171984176877877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18237865252294983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 8737490369790776430}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &8737490369790776430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18237865252294983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 0

@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 8695988641603629242}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &592910663717758075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2800410112277248736}
+  m_Layer: 0
+  m_Name: ground_ray_begin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2800410112277248736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592910663717758075}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7030187101842790225}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &788609687489164306
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +303,7 @@ Transform:
   - {fileID: 7030187101668886217}
   - {fileID: 6405157418162516496}
   - {fileID: 8420714603902621605}
+  - {fileID: 2800410112277248736}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -343,9 +374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9861b096e5c304ab150c6361d7034e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera_rotate_speed: 3600
+  m_camera_rotate_speed: 1800
   m_max_speed: 5
   m_move_speed: 4
+  m_peeping_move_speed: 1
   m_jump_impulse: 5
   m_blow_imulse: 20
   m_blow_target_dist: 2
@@ -354,9 +386,11 @@ MonoBehaviour:
   m_rb: {fileID: 1220720712606173258}
   m_photon_view: {fileID: 9082493174553288210}
   m_camera: {fileID: 2758995460067218111}
+  m_audio_listener: {fileID: 4953997501927805497}
   m_normal_camera_transform: {fileID: 6405157418162516496}
   m_muzzle: {fileID: 1619905562}
   m_peeping_camera_transform: {fileID: 8420714603902621605}
+  m_ground_check_ray_begin_pos: {fileID: 2800410112277248736}
 --- !u!1 &8885844792821298450
 GameObject:
   m_ObjectHideFlags: 0

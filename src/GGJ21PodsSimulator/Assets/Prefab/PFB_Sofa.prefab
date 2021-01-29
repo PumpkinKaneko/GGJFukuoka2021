@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 9025773021049850854}
   - component: {fileID: 7239704529332716786}
   - component: {fileID: 4374189740580463924}
+  - component: {fileID: 3743598852671993571}
+  - component: {fileID: 8691122235198135051}
   m_Layer: 0
   m_Name: PFB_Sofa
   m_TagString: Untagged
@@ -166,3 +168,42 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.106964946, y: 0.071809664, z: 0.11046982}
   m_Center: {x: -1.284017, y: 0.035901375, z: -0.3409405}
+--- !u!114 &3743598852671993571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536364241659582719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 8691122235198135051}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &8691122235198135051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536364241659582719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 0

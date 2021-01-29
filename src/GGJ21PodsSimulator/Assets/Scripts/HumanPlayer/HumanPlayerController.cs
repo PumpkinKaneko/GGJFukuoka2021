@@ -43,6 +43,8 @@ public class HumanPlayerController : MonoBehaviour
     [SerializeField]
     Camera m_camera;
     [SerializeField]
+    AudioListener m_audio_listener;
+    [SerializeField]
     Transform m_normal_camera_transform;
     [SerializeField]
     Transform m_muzzle;
@@ -69,11 +71,13 @@ public class HumanPlayerController : MonoBehaviour
         {
             m_is_active_move = true;
             m_camera.enabled = true;
+            m_audio_listener.enabled = true;
         }
         else
         {
             m_is_active_move = false;
             m_camera.enabled = false;
+            m_audio_listener.enabled = false;
         }
 
         if (!m_is_active_move) { return; }
