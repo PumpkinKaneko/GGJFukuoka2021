@@ -17,9 +17,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject listWindow;
     [SerializeField] private GameObject RoomPrefab;
     [SerializeField] private Text debug;
+    [SerializeField] private RectTransform content;
+    [SerializeField] private GameObject roomItemPrefab;
     private string roomName = "";
     private int playerNum = 0;
     private List<RoomInfo> roomDispList;
+    private List<RoomItem> roomItems;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,20 +40,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = true;
-        roomOptions.IsOpen = true; 
+        roomOptions.IsOpen = true;
         roomOptions.MaxPlayers = (byte)playerNum;
         if (string.IsNullOrEmpty(room_InputField.text))
         {
             room_InputField.text = "MyRoom";
         }
-        PhotonNetwork.JoinOrCreateRoom(room_InputField.text, roomOptions, TypedLobby.Default);
-        SceneManager.LoadScene("Main");
+        PhotonNetwork.CreateRoom(room_InputField.text, roomOptions, TypedLobby.Default);
     }
 
     public void ListOpen()
     {
-        if(listWindow.activeSelf == false)
-        listWindow.SetActive(true);
+        if (listWindow.activeSelf == false)
+            listWindow.SetActive(true);
+
     }
 
     public void ListClose()
@@ -58,31 +62,57 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             listWindow.SetActive(false);
     }
 
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("joinLobby");
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        Debug.Log("joined");
+        PhotonNetwork.LeaveLobby();
+        SceneManager.LoadScene("Main");
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("OnRoomListUpdate");
+        RoomListReset();
         base.OnRoomListUpdate(roomList);
+        Debug.Log("RoomlistUpdate");
+        roomDispList = roomList;
         foreach (var info in roomList)
         {
-            if (!info.RemovedFromList)
-            {
-                roomDispList.Add(info);
-            }
-            else
-            {
-                roomDispList.Remove(info);
-            }
+            var roomName = info.Name;
+            var nowMember = info.PlayerCount;
+            var maxMember = (int)info.MaxPlayers;
+            GameObject roomObj = Instantiate(roomItemPrefab, content);
+            var item = roomObj.GetComponent<RoomItem>();
+            item.Init(roomName,nowMember,maxMember);
         }
+
     }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+        Debug.Log("faild");
+        room_InputField.textComponent.color = Color.red;
+        room_InputField.text = "<color=#ff0000>指定の部屋は既に存在しています</color>";
+    }
+
 
     private void Init()
     {
         roomDispList = new List<RoomInfo>();
+        roomItems = new List<RoomItem>();
         list_Button.onClick.AddListener(() => ListOpen());
         close_Button.onClick.AddListener(() => ListClose());
         create_Button.onClick.AddListener(() => CreateRoom());
         if (PhotonNetwork.IsConnected) return;
         PhotonNetwork.ConnectUsingSettings();
+
     }
 
     private void ParamaterUpdate()
@@ -90,7 +120,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomName = room_InputField.text;
         playerNum = (int)people_Slider.value;
         people_Num.text = playerNum.ToString();
-        debug.text = roomDispList.Count.ToString();
+        debug.text = PhotonNetwork.CountOfRooms.ToString();
     }
 
     private void RoomListReset()
