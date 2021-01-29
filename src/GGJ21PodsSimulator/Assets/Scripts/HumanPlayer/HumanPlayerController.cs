@@ -26,6 +26,10 @@ public class HumanPlayerController : MonoBehaviour
     [SerializeField]
     float m_jump_impulse;
     [SerializeField]
+    float m_blow_imulse;
+    [SerializeField]
+    float m_blow_target_dist;
+    [SerializeField]
     float m_camera_rotate_clamp;
     [SerializeField,Tooltip("trueなら入力を受け付ける")]
     bool m_is_active_move;
@@ -105,6 +109,8 @@ public class HumanPlayerController : MonoBehaviour
             Input.GetKeyDown(KeyCode.LeftShift) ||
             Input.GetKeyDown(KeyCode.RightShift) ;
 
+        m_input.is_blow_button_down = Input.GetButtonDown("Fire2");
+
         //カーソルが邪魔になるためQでオンオフできるように
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -160,14 +166,17 @@ public class HumanPlayerController : MonoBehaviour
 
         if (m_input.is_blow_button_down)
         {
-            const float RAY_LENGTH = 5f;
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin,ray.direction * RAY_LENGTH);
+            Vector2 screen_center_position = new Vector2(Screen.width / 2, Screen.height / 2);
+            Ray ray = Camera.main.ScreenPointToRay(screen_center_position);
+            Debug.DrawRay(ray.origin,ray.direction * m_blow_target_dist);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, RAY_LENGTH))
+            if (Physics.Raycast(ray, out hit, m_blow_target_dist))
             {
-                //hit.collider
+                Rigidbody rb = hit.rigidbody;
+                if (rb)
+                {
+                    rb.AddForce(ray.direction * m_blow_imulse, ForceMode.Impulse);
+                }
             }
         }
     }

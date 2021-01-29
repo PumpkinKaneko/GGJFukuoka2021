@@ -347,6 +347,8 @@ MonoBehaviour:
   m_max_speed: 5
   m_move_speed: 4
   m_jump_impulse: 5
+  m_blow_imulse: 20
+  m_blow_target_dist: 2
   m_camera_rotate_clamp: 30
   m_is_active_move: 0
   m_rb: {fileID: 1220720712606173258}
