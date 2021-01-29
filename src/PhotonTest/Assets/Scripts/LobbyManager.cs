@@ -73,6 +73,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("joined");
         PhotonNetwork.LeaveLobby();
+        PhotonNetwork.IsMessageQueueRunning = false;
         SceneManager.LoadScene("Main");
     }
 
