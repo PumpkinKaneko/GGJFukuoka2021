@@ -24,6 +24,8 @@ public class HumanPlayerController : MonoBehaviour
     [SerializeField]
     float m_move_speed;
     [SerializeField]
+    float m_peeping_move_speed;
+    [SerializeField]
     float m_jump_impulse;
     [SerializeField]
     float m_blow_imulse;
@@ -46,6 +48,8 @@ public class HumanPlayerController : MonoBehaviour
     Transform m_muzzle;
     [SerializeField]
     Transform m_peeping_camera_transform;
+    [SerializeField]
+    Transform m_ground_check_ray_begin_pos;
 
     InputData m_input;
     bool m_cursor_lock;
@@ -144,13 +148,13 @@ public class HumanPlayerController : MonoBehaviour
 
             if (m_is_peeping)
             {
-                m_camera.transform.parent = m_normal_camera_transform;
+                m_camera.transform.parent = m_peeping_camera_transform;
                 m_camera.transform.localPosition = Vector3.zero;
                 m_camera.transform.localRotation = Quaternion.identity;
             }
             else
             {
-                m_camera.transform.parent = m_peeping_camera_transform;
+                m_camera.transform.parent = m_normal_camera_transform;
                 m_camera.transform.localPosition = Vector3.zero;
                 m_camera.transform.localRotation = Quaternion.identity;
             }
@@ -191,20 +195,27 @@ public class HumanPlayerController : MonoBehaviour
         //最大速度を超えていたら速度の加算はしない
         if (current_speed <= m_max_speed)
         {
+            float speed = m_is_peeping ? m_peeping_move_speed : m_move_speed;
             Vector3 camera_forward = m_normal_camera_transform.forward;
             camera_forward.y = 0;
-            Vector3 vertical_force = camera_forward.normalized * m_input.vertical_input * m_move_speed;
-            Vector3 horizontal_force = m_normal_camera_transform.right * m_input.horizontal_input * m_move_speed;
+            Vector3 vertical_force = camera_forward.normalized * m_input.vertical_input * speed;
+            Vector3 horizontal_force = m_normal_camera_transform.right * m_input.horizontal_input * speed;
             Vector3 curremt_velocity = m_rb.velocity;
             m_rb.velocity = horizontal_force + vertical_force + Vector3.up * curremt_velocity.y;
         }
 
+        
+
         //ジャンプ処理
         if (m_input.is_jump_button_down)
         {
-            //TODO:無限ジャンプ防止
-            m_rb.AddForce(Vector3.up * m_jump_impulse,ForceMode.Impulse);
-            m_input.is_jump_button_down = false;
+            RaycastHit hit;
+            Physics.Raycast(m_ground_check_ray_begin_pos.position, Vector3.down, out hit, 0.5f);
+            if (hit.collider)
+            {
+                m_rb.AddForce(Vector3.up * m_jump_impulse, ForceMode.Impulse);
+                m_input.is_jump_button_down = false;
+            }
         }
     }
 }
