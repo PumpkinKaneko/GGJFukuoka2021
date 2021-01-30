@@ -32,7 +32,7 @@ public class GameManage : SingletonMonoBehaviour<GameManage>
         if (string.IsNullOrEmpty(this.StartSceneName)) this.StartSceneName = SceneManager.GetActiveScene().name;
 
         this.IsMatched = false;
-        this.CurrentScene = new InGameScene(this, this.StartSceneName);
+        this.CurrentScene = new RoomScene(this, this.StartSceneName);
         this.LoadScene(this.CurrentScene);
     }
 
