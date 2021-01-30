@@ -8,13 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: d15daa36e4da3e24084fcfb873fa4692
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 18467b92a48b8734987b6d2fbd4c0a37
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon/PhotonVoice/Demos/DemoVoicePun/DemoVoicePun-Scene.unity
     guid: a3f3c3b3816924199acba595045624d2
   m_configObjects: {}
