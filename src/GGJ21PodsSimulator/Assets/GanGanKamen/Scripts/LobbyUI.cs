@@ -20,6 +20,7 @@ namespace GanGanKamen.Lobby
         [SerializeField] private GameObject listWindow;
         [SerializeField] private RectTransform content;
         [SerializeField] private GameObject roomItemPrefab;
+        [SerializeField] private GameObject barrier;
 
         private const int maxPlayers = 4;
         private List<RoomItem> roomItems;
@@ -107,7 +108,7 @@ namespace GanGanKamen.Lobby
 
         public void AotoUserName()
         {
-            name_InputField.text = "Player" + PhotonNetwork.CountOfPlayersOnMaster.ToString("D3");
+            name_InputField.text = "Player" + PhotonNetwork.CountOfPlayers.ToString("D3");
         }
 
         private void Init()
@@ -116,7 +117,9 @@ namespace GanGanKamen.Lobby
             list_Button.onClick.AddListener(() => ListOpen());
             close_Button.onClick.AddListener(() => ListClose());
             create_Button.onClick.AddListener(() => CreateRoom());
-            canCtrl = true;
+            list_Button.interactable = false;
+            create_Button.interactable = false;
+            close_Button.interactable = false;
             photonManager.Connect();
         }
 
@@ -127,6 +130,7 @@ namespace GanGanKamen.Lobby
                 switch (canCtrl)
                 {
                     case true:
+                        if (barrier.activeSelf) barrier.SetActive(false);
                         list_Button.interactable = true;
                         create_Button.interactable = true;
                         close_Button.interactable = true;

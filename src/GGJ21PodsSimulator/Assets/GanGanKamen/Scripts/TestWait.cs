@@ -15,6 +15,7 @@ namespace GanGanKamen.Wait
         [SerializeField] private TextMeshPro nameText;
         [SerializeField] private SkinnedMeshRenderer meshRenderer;
         [SerializeField] private Material[] materials;
+        [SerializeField] private float moveSpeed;
         private GameObject cameraObj;
         private string _playerName;
         [SerializeField]private int _materialNum;
@@ -55,20 +56,23 @@ namespace GanGanKamen.Wait
         {
             var moveX = Input.GetAxis("Horizontal");
             var moveY = Input.GetAxis("Vertical");
-            if (moveX != 0 || moveY != 0)
+            var inputVec = new Vector3(moveX, 0, moveY);
+            if (inputVec.magnitude != 0)
             {
-                var dir = new Vector3(moveX, 0, moveY);
-                CharacterMove(dir);
-                var forward = dir.magnitude;
+                var cameraFoward = cameraObj.transform.forward.normalized;
+                cameraFoward = Vector3.Scale(cameraFoward, new Vector3(1, 0, 1));
+                var cameraRight = cameraObj.transform.right.normalized;
+                cameraRight = Vector3.Scale(cameraRight, new Vector3(1, 0, 1));
+                var moveDirection = cameraFoward * moveY + cameraRight * moveX;
+                CharacterMove(moveDirection);
             }
         }
 
         private void CharacterMove(Vector3 _direction)
         {
             var direction = new Vector3(_direction.x, 0, _direction.z).normalized;
-            transform.Translate(direction * Time.deltaTime);
+            transform.Translate(direction * Time.deltaTime * moveSpeed);
             body.transform.localRotation = Quaternion.LookRotation(direction);
-
         }
     }
 }

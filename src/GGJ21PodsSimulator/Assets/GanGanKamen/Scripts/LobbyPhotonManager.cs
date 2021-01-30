@@ -13,8 +13,8 @@ namespace GanGanKamen.Lobby
 
         public override void OnConnectedToMaster()
         {
-            Debug.Log("joinLobby");
             PhotonNetwork.JoinLobby();
+            lobbyUI.CtrlOn();
         }
 
         public override void OnJoinedRoom()
@@ -54,7 +54,6 @@ namespace GanGanKamen.Lobby
 
         public void Connect()
         {
-            DontDestroyOnLoad(gameObject);
             if (PhotonNetwork.IsConnected) return;
             PhotonNetwork.ConnectUsingSettings();
         }
@@ -62,7 +61,8 @@ namespace GanGanKamen.Lobby
         private IEnumerator LoadSceneCoroutine()
         {
             lobbyUI.CtrlDown();
-            
+            DontDestroyOnLoad(gameObject);
+            var userName = lobbyUI.UserName;
             PhotonNetwork.LeaveLobby();
             PhotonNetwork.NickName = lobbyUI.UserName;
             PhotonNetwork.IsMessageQueueRunning = false;
@@ -71,8 +71,7 @@ namespace GanGanKamen.Lobby
             
             var waitMng = GameObject.Find("WaitRoomManager")
                 .GetComponent<GanGanKamen.Wait.WaitRoomManager>();
-            waitMng.Init(lobbyUI.UserName);
-            
+            waitMng.Init(userName);            
             Destroy(gameObject);
         }
     }
