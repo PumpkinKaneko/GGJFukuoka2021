@@ -45,6 +45,8 @@ public class HumanPlayerController : MonoBehaviour
     [SerializeField]
     AudioListener m_audio_listener;
     [SerializeField]
+    Animator m_animator;
+    [SerializeField]
     Transform m_normal_camera_transform;
     [SerializeField]
     Transform m_muzzle;
@@ -57,6 +59,7 @@ public class HumanPlayerController : MonoBehaviour
     bool m_cursor_lock;
     Vector2 m_rot;
     bool m_is_peeping;
+    bool m_is_grounded = true;
 
     void Start()
     {
@@ -84,7 +87,8 @@ public class HumanPlayerController : MonoBehaviour
 
         InputUpdate();
         CameraMove();
-        AtherUpdate();
+        OtherUpdate();
+        UpdateAnimator();
     }
 
     private void FixedUpdate()
@@ -166,13 +170,14 @@ public class HumanPlayerController : MonoBehaviour
         }
     }
 
-    private void AtherUpdate()
+    private void OtherUpdate()
     {
         if (m_input.is_play_button_down)
         {
             //TODO:airpodsから音楽を再生
         }
 
+        //家具とかを吹っ飛ばす処理
         if (m_input.is_blow_button_down)
         {
             Vector2 screen_center_position = new Vector2(Screen.width / 2, Screen.height / 2);
@@ -218,6 +223,43 @@ public class HumanPlayerController : MonoBehaviour
                 m_rb.AddForce(Vector3.up * m_jump_impulse, ForceMode.Impulse);
                 m_input.is_jump_button_down = false;
             }
+        }
+    }
+
+    void UpdateAnimator()
+    {
+        Vector3 move = transform.InverseTransformDirection(m_rb.velocity);
+        float turn_amount = move.x;
+        float forward_amount = move.z;
+
+        m_animator.SetFloat("Forward", Mathf.Abs(forward_amount), 0.1f, Time.deltaTime);
+        m_animator.SetFloat("Turn", turn_amount, 0.1f, Time.deltaTime);
+        m_animator.SetBool("Crouch", m_is_peeping);
+        m_animator.SetBool("OnGround", m_is_grounded);
+        if (!m_is_grounded)
+        {
+            m_animator.SetFloat("Jump", move.y);
+        }
+
+        if(forward_amount <= 0)
+        {
+            m_animator.speed = -1;
+        }
+        else
+        {
+            m_animator.speed = 1;
+        }
+
+        // calculate which leg is behind, so as to leave that leg trailing in the jump animation
+        // (This code is reliant on the specific run cycle offset in our animations,
+        // and assumes one leg passes the other at the normalized clip times of 0.0 and 0.5)
+        float runCycle =
+            Mathf.Repeat(
+                m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime + 0.2f, 1);
+        float jumpLeg = (runCycle < 0.5f ? 1 : -1) * forward_amount;
+        if (m_is_grounded)
+        {
+            m_animator.SetFloat("JumpLeg", jumpLeg);
         }
     }
 }
