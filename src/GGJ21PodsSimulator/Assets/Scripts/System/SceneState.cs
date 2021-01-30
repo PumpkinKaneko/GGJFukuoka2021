@@ -65,8 +65,6 @@ public class BaseSceneState : SceneState
         Debug.Log("シーンが[" + SceneManager.GetActiveScene().name + "]に切り替わりました。");
         this.Loaded = true;
 
-        Debug.Log(GameManage.Instance.CurrentScene);
-
         SceneManager.sceneLoaded -= this.SceneLoaded;
     }
 }
@@ -97,6 +95,7 @@ public class TitleScene : BaseSceneState
             _main.LoadScene(new InGameScene(_main, "InGameScene"));
         }
     }
+
 
     public override void Exit(SceneState next)
     {
@@ -138,9 +137,9 @@ public class InGameScene : BaseSceneState
             _timeText.text = this.gameTime.ToString("N1");        
 
         this.gameTime -= Time.deltaTime;        // ゲーム時間
-        if (this.gameTime < _main.InGameTime)
+        if (this.gameTime < 0)
         {
-            //_main.LoadScene(new ResultScene(_main, "ResultScene"));
+            _main.LoadScene(new ResultScene(_main, "ResultScene"));
         }
 
         base.Execute();
@@ -201,7 +200,10 @@ public class RoomScene : BaseSceneState
 
     public override void Execute()
     {
-
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            _main.LoadScene(new InGameScene(_main, "InGameScene"));
+        }
     }
 
     public override void Exit(SceneState next)
@@ -230,7 +232,10 @@ public class ResultScene : BaseSceneState
 
     public override void Execute()
     {
-        
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            _main.LoadScene(new LobbyScene(_main, "Lobby"));
+        }
     }
 
     public override void Exit(SceneState next)
