@@ -5,37 +5,38 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace GanGanKamen.Test
+namespace GanGanKamen.Wait
 {
     public class TestWait : MonoBehaviourPunCallbacks
     {
+        public string PlayerName { get { return _playerName; } }
+        public int MaterialID { get { return _materialNum; } }
         [SerializeField] private GameObject body;
         [SerializeField] private TextMeshPro nameText;
         [SerializeField] private SkinnedMeshRenderer meshRenderer;
-        private Camera camera;
-        private PhotonView photonView;
+        [SerializeField] private Material[] materials;
+        private GameObject cameraObj;
         private string _playerName;
+        [SerializeField]private int _materialNum;
         // Update is called once per frame
         void Update()
         {
+            if (photonView.IsMine == false) return;
             KeyCtrl();
-            nameText.transform.parent.LookAt(camera.transform);
+            nameText.transform.parent.LookAt(cameraObj.transform);
         }
 
-        public void Init(string playerName,Material material)
+        public void Init(string playerName)
         {
-            photonView = GetComponent<PhotonView>();
-                camera = GameObject.FindGameObjectWithTag("MainCamera")
-         .GetComponent<Camera>();
-                meshRenderer.material = material;
-                _playerName = playerName;
-                photonView.RPC("RPCTest", RpcTarget.All, _playerName);
+            cameraObj = GameObject.FindGameObjectWithTag("MainCamera");
+            _playerName = playerName;
+            //_materialNum = materialNum;
+            photonView.RPC("RPCTest", RpcTarget.All, _playerName);
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             base.OnPlayerEnteredRoom(newPlayer);
-            Debug.Log(_playerName);
             if (photonView.IsMine)
             {
                 photonView.RPC("RPCTest", RpcTarget.All, _playerName);
@@ -43,10 +44,11 @@ namespace GanGanKamen.Test
 
         }
 
-        [PunRPC] private void RPCTest(string playerName)
+        [PunRPC]
+        private void RPCTest(string playerName)
         {
-            Debug.Log(playerName);
             nameText.text = playerName;
+            //meshRenderer.material = materials[materialNum];
         }
 
         private void KeyCtrl()

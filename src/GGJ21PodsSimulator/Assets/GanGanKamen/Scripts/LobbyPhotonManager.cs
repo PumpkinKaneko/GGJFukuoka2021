@@ -62,11 +62,12 @@ namespace GanGanKamen.Lobby
         private IEnumerator LoadSceneCoroutine()
         {
             lobbyUI.CtrlDown();
+            
             PhotonNetwork.LeaveLobby();
+            PhotonNetwork.NickName = lobbyUI.UserName;
             PhotonNetwork.IsMessageQueueRunning = false;
             yield return SceneManager.LoadSceneAsync("WaitRoom", LoadSceneMode.Single);
             PhotonNetwork.IsMessageQueueRunning = true;
-            Debug.Log(PhotonNetwork.IsMessageQueueRunning);
             var waitMng = GameObject.Find("WaitRoomManager")
                 .GetComponent<GanGanKamen.Wait.WaitRoomManager>();
             waitMng.Init(lobbyUI.UserName);
