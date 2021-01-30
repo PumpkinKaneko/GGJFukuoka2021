@@ -27,6 +27,9 @@ namespace GanGanKamen.Lobby
         public void JoinRoom(string roomName)
         {
             PhotonNetwork.JoinRoom(roomName);
+            var ui = GameObject.Find("LobbyCanvas").GetComponent<LobbyUI>();
+            ui.ListClose();
+            ui.CtrlDown();
         }
     }
 }

@@ -27,16 +27,13 @@ namespace GanGanKamen.Lobby
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             base.OnCreateRoomFailed(returnCode, message);
-            /*
-            Debug.Log("faild");
-            room_InputField.textComponent.color = Color.red;
-            room_InputField.text = "<color=#ff0000>指定の部屋は既に存在しています</color>";
-            */
+            lobbyUI.CtrlOn();
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
             base.OnJoinRoomFailed(returnCode, message);
+            lobbyUI.CtrlOn();
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
