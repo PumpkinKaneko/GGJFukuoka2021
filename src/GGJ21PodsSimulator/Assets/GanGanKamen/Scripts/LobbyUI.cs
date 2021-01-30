@@ -58,12 +58,16 @@ namespace GanGanKamen.Lobby
             roomOptions.IsVisible = true;
             roomOptions.IsOpen = true;
             roomOptions.MaxPlayers = (byte)maxPlayers;
+            if (string.IsNullOrEmpty(name_InputField.text))
+            {
+                name_InputField.text = "Player"+ PhotonNetwork.CountOfPlayersOnMaster.ToString("D3");
+            }
             if (string.IsNullOrEmpty(room_InputField.text))
             {
                 room_InputField.text = "Room" + PhotonNetwork.CountOfRooms.ToString("D3");
             }
             PhotonNetwork.CreateRoom(room_InputField.text, roomOptions, TypedLobby.Default);
-            
+            CtrlDown();
         }
 
         public void RoomListReset()
@@ -86,6 +90,12 @@ namespace GanGanKamen.Lobby
         {
             if (canCtrl == false) return;
             canCtrl = false;
+        }
+
+        public void CtrlOn()
+        {
+            if (canCtrl == true) return;
+            canCtrl = true;
         }
 
         private void Init()
