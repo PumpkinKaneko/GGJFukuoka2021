@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public abstract class SceneState
@@ -8,6 +9,11 @@ public abstract class SceneState
     #region プロパティ
     public string SceneName { get; protected set; }
     #endregion
+
+    public SceneState()
+    {
+
+    }
 
     public abstract void Entry();
     public abstract void Execute();
@@ -24,15 +30,24 @@ public class BaseSceneState : SceneState
     public bool Loaded { get; set; }
     #endregion
 
+
+    public BaseSceneState() : base()
+    {
+
+    }
+
+
     public override void Entry()
     {
         Debug.Log("シーン[" + this.SceneName + "]を実行します。");
     }
 
+
     public override void Execute()
     {
-        
+
     }
+
 
     public override void Exit(SceneState next)
     {
@@ -49,6 +64,8 @@ public class BaseSceneState : SceneState
     {
         Debug.Log("シーンが[" + SceneManager.GetActiveScene().name + "]に切り替わりました。");
         this.Loaded = true;
+
+        Debug.Log(GameManage.Instance.CurrentScene);
 
         SceneManager.sceneLoaded -= this.SceneLoaded;
     }
@@ -69,6 +86,7 @@ public class TitleScene : BaseSceneState
     {
         base.Entry();
     }
+
 
     public override void Execute()
     {
@@ -91,7 +109,55 @@ public class TitleScene : BaseSceneState
 
 public class InGameScene : BaseSceneState
 {
-    public InGameScene(GameManage main, string sceneName)
+    private Text _timeText;
+
+    public float gameTime { get; private set; }
+
+
+    public InGameScene(GameManage main, string sceneName):base()
+    {
+        _main = main;
+
+        this.SceneName = sceneName;     // シーン名
+    }
+
+    public override void Entry()
+    {
+        base.Entry();
+
+        this.gameTime = GameManage.Instance.InGameTime;
+    }
+
+    public override void Execute()
+    {
+        if (!this.Loaded || !_main.IsMatched) return;
+
+        if (_timeText == null)
+            _timeText = GameObject.Find("Canvas/TimeText/Value").GetComponent<Text>();
+        else
+            _timeText.text = this.gameTime.ToString("N1");        
+
+        this.gameTime -= Time.deltaTime;        // ゲーム時間
+        if (this.gameTime < _main.InGameTime)
+        {
+            //_main.LoadScene(new ResultScene(_main, "ResultScene"));
+        }
+
+        base.Execute();
+    }
+
+    public override void Exit(SceneState next)
+    {
+        base.Exit(next);
+
+        next.Entry();
+    }
+}
+
+
+public class LobbyScene : BaseSceneState
+{
+    public LobbyScene(GameManage main, string sceneName)
     {
         _main = main;
 
@@ -106,12 +172,65 @@ public class InGameScene : BaseSceneState
 
     public override void Execute()
     {
-        if (!this.Loaded) return;
+        
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _main.LoadScene(new TitleScene(_main, "LobbyScene"));
-        }
+    public override void Exit(SceneState next)
+    {
+        base.Exit(next);
+
+        next.Entry();
+    }
+}
+
+
+public class RoomScene : BaseSceneState
+{
+    public RoomScene(GameManage main, string sceneName)
+    {
+        _main = main;
+
+        this.SceneName = sceneName;     // シーン名
+    }
+
+
+    public override void Entry()
+    {
+        base.Entry();
+    }
+
+    public override void Execute()
+    {
+
+    }
+
+    public override void Exit(SceneState next)
+    {
+        base.Exit(next);
+
+        next.Entry();
+    }
+}
+
+
+public class ResultScene : BaseSceneState
+{
+    public ResultScene(GameManage main, string sceneName)
+    {
+        _main = main;
+
+        this.SceneName = sceneName;     // シーン名
+    }
+
+
+    public override void Entry()
+    {
+        base.Entry();
+    }
+
+    public override void Execute()
+    {
+        
     }
 
     public override void Exit(SceneState next)
