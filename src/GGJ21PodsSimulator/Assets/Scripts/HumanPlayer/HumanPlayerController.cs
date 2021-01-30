@@ -145,6 +145,7 @@ public class HumanPlayerController : MonoBehaviour
         m_rot.x = m_rot.x % 360f;//オーバーフロー防止
         transform.rotation = Quaternion.Euler(0, m_rot.x, 0);
         m_normal_camera_transform.localRotation = Quaternion.Euler(m_rot.y, 0, 0);
+        m_peeping_camera_transform.localRotation = Quaternion.Euler(m_rot.y, 0, 0);
 
         if (m_input.is_peep_button_down)
         {
@@ -191,7 +192,6 @@ public class HumanPlayerController : MonoBehaviour
 
     void BodyMove()
     {
-        float dt = Time.deltaTime;
         Vector3 velocity = m_rb.velocity;
         Vector2 plane_velocity = new Vector2(velocity.x, velocity.z);
         float current_speed = plane_velocity.magnitude;
@@ -207,8 +207,6 @@ public class HumanPlayerController : MonoBehaviour
             Vector3 curremt_velocity = m_rb.velocity;
             m_rb.velocity = horizontal_force + vertical_force + Vector3.up * curremt_velocity.y;
         }
-
-        
 
         //ジャンプ処理
         if (m_input.is_jump_button_down)
