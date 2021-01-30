@@ -42,13 +42,20 @@ namespace GanGanKamen.Lobby
         {
             if (listWindow.activeSelf == false)
                 listWindow.SetActive(true);
-
+            if (name_InputField.gameObject.activeSelf == true)
+                name_InputField.gameObject.SetActive(false);
+            if (list_Button.gameObject.activeSelf == true)
+                list_Button.gameObject.SetActive(false);
         }
 
         public void ListClose()
         {
             if (listWindow.activeSelf)
                 listWindow.SetActive(false);
+            if (name_InputField.gameObject.activeSelf == false)
+                name_InputField.gameObject.SetActive(true);
+            if (list_Button.gameObject.activeSelf == false)
+                list_Button.gameObject.SetActive(true);
         }
 
         public void CreateRoom()
