@@ -18,7 +18,7 @@ namespace GanGanKamen.Wait
             Debug.Log("materialNum" + num.ToString());
             Debug.Log(materials.Length);
             GameObject obj  = PhotonNetwork.Instantiate("Prefabs/WaitTest", Vector3.zero, Quaternion.identity, 0);
-            DontDestroyOnLoad(obj);
+            //DontDestroyOnLoad(obj);
             var waitScript = obj.GetComponent<GanGanKamen.Test.TestWait>();
             waitScript.enabled = true;
             waitScript.Init(playerName,materials[num]);
