@@ -28,6 +28,10 @@ namespace GanGanKamen.Lobby
         {
             PhotonNetwork.JoinRoom(roomName);
             var ui = GameObject.Find("LobbyCanvas").GetComponent<LobbyUI>();
+            if (string.IsNullOrEmpty(ui.UserName))
+            {
+                ui.AotoUserName();
+            }
             ui.ListClose();
             ui.CtrlDown();
         }

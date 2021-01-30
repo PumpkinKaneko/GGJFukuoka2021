@@ -67,7 +67,7 @@ namespace GanGanKamen.Lobby
             roomOptions.MaxPlayers = (byte)maxPlayers;
             if (string.IsNullOrEmpty(name_InputField.text))
             {
-                name_InputField.text = "Player"+ PhotonNetwork.CountOfPlayersOnMaster.ToString("D3");
+                AotoUserName();
             }
             if (string.IsNullOrEmpty(room_InputField.text))
             {
@@ -103,6 +103,11 @@ namespace GanGanKamen.Lobby
         {
             if (canCtrl == true) return;
             canCtrl = true;
+        }
+
+        public void AotoUserName()
+        {
+            name_InputField.text = "Player" + PhotonNetwork.CountOfPlayersOnMaster.ToString("D3");
         }
 
         private void Init()
