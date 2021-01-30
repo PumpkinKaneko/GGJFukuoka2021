@@ -23,6 +23,8 @@ namespace GanGanKamen.Wait
             {
                 roomUI.StartButtonOn();
             }
+            roomUI.SetWaitPlayer(waitScript);
+            roomUI.Init();
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -46,6 +48,10 @@ namespace GanGanKamen.Wait
             }
         }
 
+        private void Update()
+        {
+            roomUI.ColorUpdate();
+        }
     }
 }
 

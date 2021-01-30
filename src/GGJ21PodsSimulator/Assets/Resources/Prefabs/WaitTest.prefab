@@ -386,7 +386,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: e9570be6adc8e7d439cde533de77b8de, type: 2}
   - {fileID: 2100000, guid: 9cd7c4a4747e87146baf8804fc70238a, type: 2}
   moveSpeed: 0.4
-  _materialNum: 0
 --- !u!114 &7969964219169305468
 MonoBehaviour:
   m_ObjectHideFlags: 0

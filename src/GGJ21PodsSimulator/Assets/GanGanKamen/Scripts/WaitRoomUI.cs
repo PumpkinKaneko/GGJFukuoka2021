@@ -12,6 +12,17 @@ namespace GanGanKamen.Wait
         [SerializeField] private Text roomNameText;
         [SerializeField] private Text roomMembersText;
         [SerializeField] private Button startButton;
+        [SerializeField] private Button colorButton;
+        [SerializeField] private Color[] colors;
+        private TestWait _waitPlayer;
+        private int colorNumber = 0;
+        private int preColor = 0;
+
+        public void Init()
+        {
+            startButton.onClick.AddListener(() => GameStart());
+            colorButton.onClick.AddListener(() => ColorChange());
+        }
 
         public void TextSet()
         {
@@ -34,6 +45,34 @@ namespace GanGanKamen.Wait
         {
             if (startButton.gameObject.activeSelf == false)
                 startButton.gameObject.SetActive(true);
+        }
+
+        public void SetWaitPlayer(TestWait waitPlayer)
+        {
+            _waitPlayer = waitPlayer;
+        }
+
+        public void ColorChange()
+        {
+            if (colorNumber >= 3) colorNumber = 0;
+            else colorNumber += 1;
+        }
+
+        public void GameStart()
+        {
+            startButton.interactable = false;
+            startButton.gameObject.SetActive(false);
+            colorButton.interactable = false;
+        }
+
+        public void ColorUpdate()
+        {
+            if(preColor != colorNumber)
+            {
+                _waitPlayer.SetMaterial(colorNumber);
+                colorButton.image.color = colors[colorNumber]; 
+                preColor = colorNumber;
+            }
         }
     }
 }

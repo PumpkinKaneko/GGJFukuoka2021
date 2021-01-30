@@ -18,7 +18,7 @@ namespace GanGanKamen.Wait
         [SerializeField] private float moveSpeed;
         private GameObject cameraObj;
         private string _playerName;
-        [SerializeField]private int _materialNum;
+        private int _materialNum;
         // Update is called once per frame
         void Update()
         {
@@ -31,8 +31,13 @@ namespace GanGanKamen.Wait
         {
             cameraObj = GameObject.FindGameObjectWithTag("MainCamera");
             _playerName = playerName;
-            //_materialNum = materialNum;
-            photonView.RPC("RPCTest", RpcTarget.All, _playerName);
+            photonView.RPC("SetNameRPC", RpcTarget.All, _playerName);
+        }
+
+        public void SetMaterial(int num)
+        {
+            _materialNum = num;
+            photonView.RPC("SetMaterialRPC", RpcTarget.All, _materialNum);
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -40,16 +45,25 @@ namespace GanGanKamen.Wait
             base.OnPlayerEnteredRoom(newPlayer);
             if (photonView.IsMine)
             {
-                photonView.RPC("RPCTest", RpcTarget.All, _playerName);
+                photonView.RPC("SetNameRPC", RpcTarget.All, _playerName);
+                photonView.RPC("SetMaterialRPC", RpcTarget.All, _materialNum);
             }
 
         }
 
+
+
         [PunRPC]
-        private void RPCTest(string playerName)
+        private void SetNameRPC(string playerName)
         {
             nameText.text = playerName;
-            //meshRenderer.material = materials[materialNum];
+            
+        }
+
+        [PunRPC]
+        private void SetMaterialRPC(int matNum)
+        {
+            meshRenderer.material = materials[matNum];
         }
 
         private void KeyCtrl()
