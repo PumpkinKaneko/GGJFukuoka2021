@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace GanGanKamen.Test
 {
-    public class TestWait : MonoBehaviour
+    public class TestWait : MonoBehaviourPunCallbacks
     {
         [SerializeField] private GameObject body;
         [SerializeField] private TextMeshPro nameText;
         [SerializeField] private SkinnedMeshRenderer meshRenderer;
         private Camera camera;
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
+        private PhotonView photonView;
+        private string _playerName;
         // Update is called once per frame
         void Update()
         {
@@ -26,10 +24,29 @@ namespace GanGanKamen.Test
 
         public void Init(string playerName,Material material)
         {
+            photonView = GetComponent<PhotonView>();
+                camera = GameObject.FindGameObjectWithTag("MainCamera")
+         .GetComponent<Camera>();
+                meshRenderer.material = material;
+                _playerName = playerName;
+                photonView.RPC("RPCTest", RpcTarget.All, _playerName);
+        }
+
+        public override void OnPlayerEnteredRoom(Player newPlayer)
+        {
+            base.OnPlayerEnteredRoom(newPlayer);
+            Debug.Log(_playerName);
+            if (photonView.IsMine)
+            {
+                photonView.RPC("RPCTest", RpcTarget.All, _playerName);
+            }
+
+        }
+
+        [PunRPC] private void RPCTest(string playerName)
+        {
+            Debug.Log(playerName);
             nameText.text = playerName;
-            camera = GameObject.FindGameObjectWithTag("MainCamera")
-                .GetComponent<Camera>();
-            meshRenderer.material = material;
         }
 
         private void KeyCtrl()
