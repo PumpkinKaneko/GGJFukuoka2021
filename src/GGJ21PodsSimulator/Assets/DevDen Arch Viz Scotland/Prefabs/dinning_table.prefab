@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3223647861473109598}
   - component: {fileID: 3223647861474075806}
   - component: {fileID: 3223647861476375802}
+  - component: {fileID: 1821842073260120502}
+  - component: {fileID: 30065782342098174}
   m_Layer: 0
   m_Name: dinning_table
   m_TagString: Untagged
@@ -55,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -90,5 +93,31 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 76.23227, y: 23.015612, z: 30.453539}
-  m_Center: {x: 0, y: 0.050247665, z: 0.0000009536743}
+  m_Size: {x: 76.23227, y: 1.26848, z: 30.453539}
+  m_Center: {x: 0, y: 10.923798, z: 0.0000009083747}
+--- !u!65 &1821842073260120502
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223647861476342366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.570792, y: 23.015612, z: 27.889}
+  m_Center: {x: -20.345133, y: 0.050244022, z: 0.085485324}
+--- !u!65 &30065782342098174
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223647861476342366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.570792, y: 23.015612, z: 27.889}
+  m_Center: {x: 20.34513, y: 0.050244022, z: 0.085485324}
