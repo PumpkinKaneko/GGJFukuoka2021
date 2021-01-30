@@ -11,17 +11,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManage : SingletonMonoBehaviour<GameManage>
 {
-    [Header("InGame Options")]
-    public Text InGaemTimeUI;
-    public float InGameTime;
+    [Header("Start Settings")]
+    public string StartSceneName = "";
 
-    private List<GameObject> _photonToken;
-    private float _gameTime;
+    [Header("InGame Options")]
+    public float InGameTime;
 
 
     #region プロパティ
     public SceneState CurrentScene { get; private set; }
     public SceneState PrevScene { get; private set; }
+    public bool IsMatched { get; set; }
     #endregion
 
 
@@ -29,7 +29,10 @@ public class GameManage : SingletonMonoBehaviour<GameManage>
     {
         DontDestroyOnLoad(this.gameObject);
 
-        this.CurrentScene = new TitleScene(this, "TitleScene");
+        if (string.IsNullOrEmpty(this.StartSceneName)) this.StartSceneName = SceneManager.GetActiveScene().name;
+
+        this.IsMatched = false;
+        this.CurrentScene = new InGameScene(this, this.StartSceneName);
         this.LoadScene(this.CurrentScene);
     }
 
@@ -68,5 +71,15 @@ public class GameManage : SingletonMonoBehaviour<GameManage>
     }
 
 
-    
+    public AsyncOperation LoadSceneAsync (SceneState next, LoadSceneMode mode = LoadSceneMode.Single)
+    {
+        this.ChangeSceneState(next);
+
+        if (this.CurrentScene != null)
+        {
+            SceneManager.sceneLoaded += this.CurrentScene.SceneLoaded;
+        }
+
+        return SceneManager.LoadSceneAsync(next.SceneName, mode);
+    }
 }

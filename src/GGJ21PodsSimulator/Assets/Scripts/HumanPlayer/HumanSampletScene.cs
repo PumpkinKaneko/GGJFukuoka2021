@@ -39,6 +39,8 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.Instantiate("Prefabs/" + PlayerPrefabName, m_start_transform.position, m_start_transform.rotation);
 
+        GameManage.Instance.IsMatched = true;
+
         base.OnJoinedRoom();
     }
 }
