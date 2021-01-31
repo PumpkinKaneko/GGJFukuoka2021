@@ -617,7 +617,7 @@ PrefabInstance:
     - target: {fileID: 3106418222121601455, guid: 6556fcdd2fc02664a925a8d2b2083149,
         type: 3}
       propertyPath: InGameTime
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6098411579512564171, guid: 6556fcdd2fc02664a925a8d2b2083149,
         type: 3}

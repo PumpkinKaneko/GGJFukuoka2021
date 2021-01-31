@@ -71,10 +71,12 @@ namespace GanGanKamen.Wait
             {
                 playerList.Add(obj);
             }
+            Debug.Log(GameObject.FindGameObjectsWithTag("Player").Length);
             playerList = playerList.OrderBy(a => System.Guid.NewGuid()).ToList();
             for(int i = 0; i < playerList.Count; i++)
             {
-                playerList[i].GetComponent<TestWait>().SetCharacter(i);
+                var id = playerList[i].GetComponent<PhotonView>().ViewID;
+                playerList[i].GetComponent<TestWait>().SetCharacter(i,id);
             }
         }
     }

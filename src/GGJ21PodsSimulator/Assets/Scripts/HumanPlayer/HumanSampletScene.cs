@@ -16,6 +16,7 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
 
     public void Init(string playerName,int materialNum, int characterNumber)
     {
+        Debug.Log(characterNumber);
         if(characterNumber == 0)
         {
             PhotonNetwork.Instantiate("Prefabs/human_player",
