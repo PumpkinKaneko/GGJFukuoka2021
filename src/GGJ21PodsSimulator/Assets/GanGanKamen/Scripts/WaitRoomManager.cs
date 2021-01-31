@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Linq;
 
 namespace GanGanKamen.Wait
 {
@@ -29,10 +30,12 @@ namespace GanGanKamen.Wait
             roomUI.SetWaitPlayer(waitScript);
             _waitPlayer = waitScript;
             roomUI.Init();
+            
         }
 
         public void GameStart()
         {
+            Shuffle();
             _waitPlayer.GameStart();
         }
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -61,6 +64,19 @@ namespace GanGanKamen.Wait
             roomUI.ColorUpdate();
         }
 
+        private void Shuffle()
+        {
+            var playerList = new List<GameObject>();
+            foreach(var obj in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                playerList.Add(obj);
+            }
+            playerList = playerList.OrderBy(a => System.Guid.NewGuid()).ToList();
+            for(int i = 0; i < playerList.Count; i++)
+            {
+                playerList[i].GetComponent<TestWait>().SetCharacter(i);
+            }
+        }
     }
 }
 

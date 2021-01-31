@@ -19,6 +19,7 @@ namespace GanGanKamen.Wait
         private GameObject cameraObj;
         private string _playerName;
         private int _materialNum;
+        private int _charaNum;
         // Update is called once per frame
         void Update()
         {
@@ -49,6 +50,11 @@ namespace GanGanKamen.Wait
                 photonView.RPC("SetMaterialRPC", RpcTarget.All, _materialNum);
             }
 
+        }
+
+        public void SetCharacter(int number)
+        {
+            _charaNum = number;
         }
 
         public void GameStart()
@@ -101,7 +107,7 @@ namespace GanGanKamen.Wait
                 new InGameScene(GameManage.Instance, "InGameScene"), UnityEngine.SceneManagement.LoadSceneMode.Single);
             PhotonNetwork.IsMessageQueueRunning = true;
             var stgmng = GameObject.Find("StageManager").GetComponent<HumanSampletScene>();
-            stgmng.Init(PhotonNetwork.NickName, _materialNum);
+            stgmng.Init(PhotonNetwork.NickName, _materialNum,_charaNum);
             Destroy(gameObject);
         }
 

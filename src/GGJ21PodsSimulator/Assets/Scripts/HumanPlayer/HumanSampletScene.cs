@@ -7,24 +7,25 @@ using Photon.Realtime;
 public class HumanSampletScene : MonoBehaviourPunCallbacks
 {
 
-    public string RoomName = "ConnectedRoom";
-    public string PlayerPrefabName;
-
     [SerializeField]
-    private Transform m_start_transform;
+    private Transform human_start_transform;
     [SerializeField]
     private GameObject m_play_sound_panel;
+    [SerializeField]
+    private Transform[] earPhone_start_transforms; 
 
-    private void Start()
+    public void Init(string playerName,int materialNum, int characterNumber)
     {
-        // マスターサーバーに接続
-        //PhotonNetwork.ConnectUsingSettings();
-
-    }
-
-    public void Init(string playerName,int materialNum)
-    {
-        PhotonNetwork.Instantiate("Prefabs/" + PlayerPrefabName, m_start_transform.position, m_start_transform.rotation);
+        if(characterNumber == 0)
+        {
+            PhotonNetwork.Instantiate("Prefabs/human_player",
+                human_start_transform.position, human_start_transform.rotation);
+        }
+        else
+        {
+            PhotonNetwork.Instantiate("Prefabs/airpods_player", earPhone_start_transforms[characterNumber].position, 
+                earPhone_start_transforms[characterNumber].rotation);
+        }
 
         GameManage.Instance.IsMatched = true;
     }
