@@ -54,7 +54,12 @@ namespace GanGanKamen.Lobby
 
         public void Connect()
         {
-            if (PhotonNetwork.IsConnected) return;
+            if (PhotonNetwork.IsConnected)
+            {
+                StartCoroutine(LoadSceneCoroutine());
+                return;
+            }
+
             PhotonNetwork.ConnectUsingSettings();
         }
 

@@ -135,7 +135,9 @@ namespace GanGanKamen.Lobby
 
         private void CanCtrlUpdate()
         {
-            if(canCtrl != preCanCtrl)
+            Debug.Log("" + canCtrl);
+
+            if (canCtrl != preCanCtrl)
             {
                 switch (canCtrl)
                 {
