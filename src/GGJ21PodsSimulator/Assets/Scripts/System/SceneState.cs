@@ -72,6 +72,9 @@ public class BaseSceneState : SceneState
 
 public class TitleScene : BaseSceneState
 {
+    private Button _multiPlayButton;
+
+
     public TitleScene(GameManage main, string sceneName)
     {
         _main = main;
@@ -83,6 +86,8 @@ public class TitleScene : BaseSceneState
     public override void Entry()
     {
         base.Entry();
+
+        
     }
 
 
@@ -90,7 +95,15 @@ public class TitleScene : BaseSceneState
     {
         if (!this.Loaded) return;
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (_multiPlayButton == null)
+        {
+            _multiPlayButton = GameObject.Find("Canvas/PlayButtonGroup/MultiPlayButton").GetComponent<Button>();
+            _multiPlayButton.onClick.AddListener(() => {
+                _main.LoadScene(new LobbyScene(_main, "Lobby"));
+            });
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _main.LoadScene(new InGameScene(_main, "InGameScene"));
         }
@@ -127,8 +140,10 @@ public class InGameScene : BaseSceneState
         this.gameTime = GameManage.Instance.InGameTime;
     }
 
+
     public override void Execute()
     {
+        Debug.Log(_main.IsMatched);
         if (!this.Loaded || !_main.IsMatched) return;
 
         if (_timeText == null)
@@ -144,6 +159,7 @@ public class InGameScene : BaseSceneState
 
         base.Execute();
     }
+
 
     public override void Exit(SceneState next)
     {
@@ -217,6 +233,8 @@ public class RoomScene : BaseSceneState
 
 public class ResultScene : BaseSceneState
 {
+    private Button _backLobbyButton;
+
     public ResultScene(GameManage main, string sceneName)
     {
         _main = main;
@@ -232,9 +250,14 @@ public class ResultScene : BaseSceneState
 
     public override void Execute()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (!this.Loaded) return;
+
+        if (_backLobbyButton == null)
         {
-            _main.LoadScene(new LobbyScene(_main, "Lobby"));
+            _backLobbyButton = GameObject.Find("Canvas/PlayButtonGroup/MultiPlayButton").GetComponent<Button>();
+            _backLobbyButton.onClick.AddListener(() => {
+                _main.LoadScene(new LobbyScene(_main, "Lobby"));
+            });
         }
     }
 
