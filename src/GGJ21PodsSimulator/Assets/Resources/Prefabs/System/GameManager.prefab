@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartSceneName: 
-  InGaemTimeUI: {fileID: 0}
-  InGameTime: 0
+  InGameTime: 60

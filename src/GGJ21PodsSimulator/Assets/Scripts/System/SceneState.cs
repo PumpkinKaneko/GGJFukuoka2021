@@ -239,7 +239,7 @@ public class ResultScene : BaseSceneState
     private Text _winnerText;
     private GameObject _winnerObject;
     private GameObject _loserObject;
-    private string _playerName = "SamplePlayer";
+    private string _playerName = "TitleHuman";
     private string _podsName = "AirPodsPro";
 
 

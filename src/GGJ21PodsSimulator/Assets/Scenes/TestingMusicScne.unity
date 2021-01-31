@@ -974,8 +974,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1a0a0117c177d40ad6e7f1d01fa4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainSoundAudioClip: {fileID: 8300000, guid: 64b9c3be04ed6024ebaa963687025b57, type: 3}
-  newClip: {fileID: 8300000, guid: 1e86b6262468c0c4391ec3d738a3ec92, type: 3}
+  mainSoundAudioClip: {fileID: 8300000, guid: 55d92537ce724724a879794720c091c3, type: 3}
+  newClip: {fileID: 8300000, guid: 55d92537ce724724a879794720c091c3, type: 3}
   mainSoundAudioMixerGroup: {fileID: -2596488183541150766, guid: a1ebb631d44a98e4eb73fc06fa65199e,
     type: 2}
 --- !u!114 &750802903
@@ -990,7 +990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa521f9ba277404e8d3d76341be9957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAudioClip: {fileID: 8300000, guid: efb8f133899a8674882e17b6932aef91, type: 3}
+  selectedAudioClip: {fileID: 8300000, guid: 55d92537ce724724a879794720c091c3, type: 3}
   selectedTransform: {fileID: 1938771484}
   randAudioClipArray: []
 --- !u!1 &788492323
