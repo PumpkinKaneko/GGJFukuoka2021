@@ -207,7 +207,7 @@ public class EarphonesController : MonoBehaviour{
     }
 
 
-    private void OnCollisionEnter(Collision col) {
+    private void OnCollisionEnter(Collision col) {       
         //着地音再生、着地時にブースト回復,
         if (col.gameObject.tag == "Floor") {
             audioSource.PlayOneShot(landingSounds);

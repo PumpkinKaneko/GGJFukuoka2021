@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RoomData
   - PlaySoundPanel
+  - Human
   layers:
   - Default
   - TransparentFX
