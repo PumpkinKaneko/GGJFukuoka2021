@@ -18,7 +18,7 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
     private void Start()
     {
         // マスターサーバーに接続
-        PhotonNetwork.ConnectUsingSettings();
+        //PhotonNetwork.ConnectUsingSettings();
 
     }
 
