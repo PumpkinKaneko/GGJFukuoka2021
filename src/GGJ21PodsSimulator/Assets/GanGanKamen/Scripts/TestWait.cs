@@ -51,7 +51,10 @@ namespace GanGanKamen.Wait
 
         }
 
-
+        public void GameStart()
+        {
+            photonView.RPC("GameStartRPC", RpcTarget.All);
+        }
 
         [PunRPC]
         private void SetNameRPC(string playerName)
@@ -87,6 +90,25 @@ namespace GanGanKamen.Wait
             var direction = new Vector3(_direction.x, 0, _direction.z).normalized;
             transform.Translate(direction * Time.deltaTime * moveSpeed);
             body.transform.localRotation = Quaternion.LookRotation(direction);
+        }
+
+
+        private IEnumerator LoadSceneCoroutine()
+        {
+            DontDestroyOnLoad(gameObject);
+            PhotonNetwork.IsMessageQueueRunning = false;
+            yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync
+                ("InGameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            PhotonNetwork.IsMessageQueueRunning = true;
+            var stgmng = GameObject.Find("StageManager").GetComponent<HumanSampletScene>();
+            stgmng.Init(PhotonNetwork.NickName, _materialNum);
+            Destroy(gameObject);
+        }
+
+        [PunRPC]
+        private void GameStartRPC()
+        {
+            StartCoroutine(LoadSceneCoroutine());
         }
     }
 }

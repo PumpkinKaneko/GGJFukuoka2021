@@ -10,6 +10,9 @@ namespace GanGanKamen.Wait
     {
         [SerializeField] private WaitRoomUI roomUI;
         [SerializeField] private Transform spawnPosition;
+
+        private TestWait _waitPlayer;
+
         public void Init(string playerName)
         {
             roomUI.TextSet();
@@ -24,9 +27,14 @@ namespace GanGanKamen.Wait
                 roomUI.StartButtonOn();
             }
             roomUI.SetWaitPlayer(waitScript);
+            _waitPlayer = waitScript;
             roomUI.Init();
         }
 
+        public void GameStart()
+        {
+            _waitPlayer.GameStart();
+        }
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             base.OnPlayerEnteredRoom(newPlayer);
@@ -52,6 +60,7 @@ namespace GanGanKamen.Wait
         {
             roomUI.ColorUpdate();
         }
+
     }
 }
 

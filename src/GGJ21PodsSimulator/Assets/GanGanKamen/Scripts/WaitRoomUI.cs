@@ -9,11 +9,13 @@ namespace GanGanKamen.Wait
 {
     public class WaitRoomUI : MonoBehaviour
     {
+        public int ColorNumber { get { return colorNumber; } }
         [SerializeField] private Text roomNameText;
         [SerializeField] private Text roomMembersText;
         [SerializeField] private Button startButton;
         [SerializeField] private Button colorButton;
         [SerializeField] private Color[] colors;
+        [SerializeField] private WaitRoomManager roomManager;
         private TestWait _waitPlayer;
         private int colorNumber = 0;
         private int preColor = 0;
@@ -63,6 +65,7 @@ namespace GanGanKamen.Wait
             startButton.interactable = false;
             startButton.gameObject.SetActive(false);
             colorButton.interactable = false;
+            roomManager.GameStart();
         }
 
         public void ColorUpdate()

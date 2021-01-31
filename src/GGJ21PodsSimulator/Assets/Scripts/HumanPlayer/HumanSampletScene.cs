@@ -20,6 +20,14 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
 
     }
 
+    public void Init(string playerName,int materialNum)
+    {
+        PhotonNetwork.Instantiate("Prefabs/" + PlayerPrefabName, m_start_transform.position, m_start_transform.rotation);
+
+        GameManage.Instance.IsMatched = true;
+    }
+
+    /*
     /// <summary>
     /// 接続完了のコールバック
     /// </summary>
@@ -43,4 +51,5 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
 
         base.OnJoinedRoom();
     }
+    */
 }
