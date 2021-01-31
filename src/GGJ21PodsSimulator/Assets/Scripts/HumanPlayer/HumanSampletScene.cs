@@ -23,7 +23,7 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
         }
         else
         {
-            PhotonNetwork.Instantiate("Prefabs/airpods_player", earPhone_start_transforms[characterNumber].position, 
+            PhotonNetwork.Instantiate("Prefabs/AirPods_player", earPhone_start_transforms[characterNumber].position, 
                 earPhone_start_transforms[characterNumber].rotation);
         }
 
