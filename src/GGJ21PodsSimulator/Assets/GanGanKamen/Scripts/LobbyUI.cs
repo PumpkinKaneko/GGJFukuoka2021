@@ -21,7 +21,8 @@ namespace GanGanKamen.Lobby
         [SerializeField] private RectTransform content;
         [SerializeField] private GameObject roomItemPrefab;
         [SerializeField] private GameObject barrier;
-
+        [SerializeField] private AudioSource audio;
+        [SerializeField] private AudioClip acceptSE, cancelSE;
         private const int maxPlayers = 4;
         private List<RoomItem> roomItems;
         private bool canCtrl = false;
@@ -42,7 +43,11 @@ namespace GanGanKamen.Lobby
         public void ListOpen()
         {
             if (listWindow.activeSelf == false)
+            {
                 listWindow.SetActive(true);
+                audio.PlayOneShot(acceptSE);
+            }
+                
             if (name_InputField.gameObject.activeSelf == true)
                 name_InputField.gameObject.SetActive(false);
             if (list_Button.gameObject.activeSelf == true)
@@ -52,7 +57,11 @@ namespace GanGanKamen.Lobby
         public void ListClose()
         {
             if (listWindow.activeSelf)
+            {
                 listWindow.SetActive(false);
+                audio.PlayOneShot(cancelSE);
+            }
+                
             if (name_InputField.gameObject.activeSelf == false)
                 name_InputField.gameObject.SetActive(true);
             if (list_Button.gameObject.activeSelf == false)
@@ -75,6 +84,7 @@ namespace GanGanKamen.Lobby
                 room_InputField.text = "Room" + PhotonNetwork.CountOfRooms.ToString("D3");
             }
             PhotonNetwork.CreateRoom(room_InputField.text, roomOptions, TypedLobby.Default);
+            audio.PlayOneShot(acceptSE);
             CtrlDown();
         }
 

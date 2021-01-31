@@ -61,6 +61,7 @@ namespace GanGanKamen.Lobby
         private IEnumerator LoadSceneCoroutine()
         {
             lobbyUI.CtrlDown();
+            yield return new WaitForSeconds(2f);
             DontDestroyOnLoad(gameObject);
             var userName = lobbyUI.UserName;
             PhotonNetwork.LeaveLobby();
