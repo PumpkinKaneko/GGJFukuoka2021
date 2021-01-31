@@ -155,6 +155,7 @@ public class InGameScene : BaseSceneState
         if (this.gameTime < 0)
         {
             _main.GameFinished = true;
+            _main.Winner = WinnerState.Pods;
             _main.LoadScene(new ResultScene(_main, "ResultScene"));
         }
 
@@ -235,6 +236,7 @@ public class RoomScene : BaseSceneState
 public class ResultScene : BaseSceneState
 {
     private Button _backLobbyButton;
+    private Text _winnerText;
     private GameObject _winnerObject;
     private GameObject _loserObject;
     private string _playerName = "SamplePlayer";
@@ -264,6 +266,7 @@ public class ResultScene : BaseSceneState
             _backLobbyButton.onClick.AddListener(this.GotoScene);
         }
 
+
         // 勝敗
         if(_loserObject == null || _winnerObject == null)
         {
@@ -271,7 +274,11 @@ public class ResultScene : BaseSceneState
         }
         else
         {
-            Debug.Log("勝者：" + _winnerObject.name);
+            if (_winnerText == null)
+            {
+                _winnerText = GameObject.Find("Canvas/WinnerText").GetComponent<Text>();
+                _winnerText.text = _winnerObject.name + "\nWin";
+            }
         }
 
     }

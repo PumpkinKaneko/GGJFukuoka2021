@@ -32,7 +32,7 @@ public class GameManage : SingletonMonoBehaviour<GameManage>
     #region プロパティ
     public SceneState CurrentScene { get; private set; }
     public SceneState PrevScene { get; private set; }
-    public WinnerState Winner { get; private set; }
+    public WinnerState Winner { get; set; }
     public bool IsMatched { get; set; }
     public bool GameFinished { get; set; }
     // ロビー名[ルーム(待合室)で確定]
