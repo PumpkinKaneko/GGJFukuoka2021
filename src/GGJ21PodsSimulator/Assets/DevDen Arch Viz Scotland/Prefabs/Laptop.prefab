@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7199759360910454832}
   - component: {fileID: 5797110688338367639}
   - component: {fileID: 8156237170822909416}
+  - component: {fileID: 6576980717084924314}
   m_Layer: 0
   m_Name: Laptop
   m_TagString: Untagged
@@ -151,3 +152,15 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
+--- !u!114 &6576980717084924314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6872389317433336408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9868e575f355dd4f8eb0ba1636c54e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

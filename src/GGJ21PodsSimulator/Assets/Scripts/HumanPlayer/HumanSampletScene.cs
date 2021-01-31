@@ -12,6 +12,8 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private Transform m_start_transform;
+    [SerializeField]
+    private GameObject m_play_sound_panel;
 
     private void Start()
     {
