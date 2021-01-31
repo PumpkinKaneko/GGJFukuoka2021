@@ -207,7 +207,14 @@ public class EarphonesController : MonoBehaviour{
     }
 
 
-    private void OnCollisionEnter(Collision col) {       
+    private void OnCollisionEnter(Collision col) { 
+        if(col.gameObject.tag == "Human")
+        {
+            GameManage.Instance.GameFinished = true;
+            GameManage.Instance.Winner = WinnerState.Player;
+            GameManage.Instance.LoadScene(new ResultScene(GameManage.Instance, "ResultScene"));
+        }
+
         //着地音再生、着地時にブースト回復,
         if (col.gameObject.tag == "Floor") {
             audioSource.PlayOneShot(landingSounds);
