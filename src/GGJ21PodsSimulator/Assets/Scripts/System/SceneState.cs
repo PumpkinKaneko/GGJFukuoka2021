@@ -233,6 +233,8 @@ public class RoomScene : BaseSceneState
 
 public class ResultScene : BaseSceneState
 {
+    private Button _backLobbyButton;
+
     public ResultScene(GameManage main, string sceneName)
     {
         _main = main;
@@ -248,9 +250,14 @@ public class ResultScene : BaseSceneState
 
     public override void Execute()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (!this.Loaded) return;
+
+        if (_backLobbyButton == null)
         {
-            _main.LoadScene(new LobbyScene(_main, "Lobby"));
+            _backLobbyButton = GameObject.Find("Canvas/PlayButtonGroup/MultiPlayButton").GetComponent<Button>();
+            _backLobbyButton.onClick.AddListener(() => {
+                _main.LoadScene(new LobbyScene(_main, "Lobby"));
+            });
         }
     }
 
