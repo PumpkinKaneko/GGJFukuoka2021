@@ -3,7 +3,9 @@
 
 //OverallSoundManager 
 //Method : This is the Classes which is used 
-//For Overall The Sound Manager 
+//For Overall The Sound Manager
+[RequireComponent(typeof(BGMSoundManager))]
+[RequireComponent(typeof(SFXSoundManager))]
 public class OverallSoundManager : MonoBehaviour
 {
     public static OverallSoundManager instance 

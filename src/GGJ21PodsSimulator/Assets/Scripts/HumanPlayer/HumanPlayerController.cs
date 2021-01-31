@@ -175,6 +175,10 @@ public class HumanPlayerController : MonoBehaviour
         if (m_input.is_play_button_down)
         {
             //TODO:airpodsから音楽を再生
+
+
+
+            OverallSoundManager.instance.selectedAudioClipAndPositionFunction();
         }
 
         //家具とかを吹っ飛ばす処理
