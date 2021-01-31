@@ -19,7 +19,7 @@ namespace GanGanKamen.Wait
         private GameObject cameraObj;
         private string _playerName;
         private int _materialNum;
-        private int _charaNum = 5;
+        private int _charaNum = 1;
         // Update is called once per frame
         void Update()
         {
