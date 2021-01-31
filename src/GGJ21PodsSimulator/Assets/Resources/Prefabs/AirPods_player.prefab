@@ -115,6 +115,8 @@ MonoBehaviour:
   jetSounds: {fileID: 8300000, guid: 50ccd0e1bd3650b4e999e5270bb797a7, type: 3}
   searchAPSounds: {fileID: 0}
   warning: {fileID: 8300000, guid: 55d92537ce724724a879794720c091c3, type: 3}
+  otherObjects: []
+  myCamera: {fileID: 4303300722456989569}
 --- !u!82 &4407680616683835845
 AudioSource:
   m_ObjectHideFlags: 0

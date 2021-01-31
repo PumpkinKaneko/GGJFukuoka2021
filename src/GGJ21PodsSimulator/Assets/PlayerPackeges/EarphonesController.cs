@@ -30,18 +30,46 @@ public class EarphonesController : MonoBehaviour{
     public AudioClip searchAPSounds;　//人間側索敵用音格納
     public AudioClip warning;  //人間接近時格納用
 
+    Photon.Pun.PhotonView view;
+    bool isMine;
+    public GameObject[] otherObjects;
+    public Camera myCamera;
 
     void Start(){
+        view = GetComponent<Photon.Pun.PhotonView>();
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         batteryRemnant = maxBattery;
         boostRemnant = boostLimit;
-
-
     }
 
     
     void Update(){
+        // 所有権が自分になければカメラと動作フラグを切る
+        if (view.IsMine)
+        {
+            isMine = true;
+            foreach (var obj in otherObjects)
+            {
+                obj.SetActive(true);
+            }
+            myCamera.enabled = true;
+        }
+        else
+        {
+            isMine = false;
+            foreach(var obj in otherObjects)
+            {
+                obj.SetActive(false);
+            }
+            myCamera.enabled = false;
+        }
+
+        if (!view.IsMine)
+        {
+            return;
+        }
+
         BoostRecoverFlag();
         //BoostRecoverStart();
 
@@ -60,7 +88,11 @@ public class EarphonesController : MonoBehaviour{
 
 
     private void FixedUpdate(){
-        Move();
+        if (!view.IsMine)
+        {
+            return;
+        }
+            Move();
     }
 
 
