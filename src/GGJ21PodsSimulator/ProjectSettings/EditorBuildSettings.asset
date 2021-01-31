@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GanGanKamen/Scenes/WaitRoom.unity
     guid: e1aa7bfa470431e4aa118508734dfd10
+  - enabled: 1
+    path: Assets/Scenes/ResultScene.unity
+    guid: 9e43acb4dd3a8de47af7a45bc48321bf
   m_configObjects: {}
