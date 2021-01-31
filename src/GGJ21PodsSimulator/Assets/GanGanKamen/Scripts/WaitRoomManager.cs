@@ -75,8 +75,8 @@ namespace GanGanKamen.Wait
             playerList = playerList.OrderBy(a => System.Guid.NewGuid()).ToList();
             for(int i = 0; i < playerList.Count; i++)
             {
-                var id = playerList[i].GetComponent<PhotonView>().ViewID;
-                playerList[i].GetComponent<TestWait>().SetCharacter(i,id);
+                //var id = playerList[i].GetComponent<PhotonView>().ViewID;
+                playerList[i].GetComponent<TestWait>().SetCharacter(i);
             }
         }
     }
