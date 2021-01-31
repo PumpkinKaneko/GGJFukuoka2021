@@ -97,8 +97,8 @@ namespace GanGanKamen.Wait
         {
             DontDestroyOnLoad(gameObject);
             PhotonNetwork.IsMessageQueueRunning = false;
-            yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync
-                ("InGameScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
+            yield return GameManage.Instance.LoadSceneAsync(
+                new InGameScene(GameManage.Instance, "InGameScene"), UnityEngine.SceneManagement.LoadSceneMode.Single);
             PhotonNetwork.IsMessageQueueRunning = true;
             var stgmng = GameObject.Find("StageManager").GetComponent<HumanSampletScene>();
             stgmng.Init(PhotonNetwork.NickName, _materialNum);

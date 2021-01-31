@@ -34,6 +34,7 @@ public class GameManage : SingletonMonoBehaviour<GameManage>
     public SceneState PrevScene { get; private set; }
     public WinnerState Winner { get; private set; }
     public bool IsMatched { get; set; }
+    public bool GameFinished { get; set; }
     // ロビー名[ルーム(待合室)で確定]
     public string LobbyName { get; set; }
     #endregion

@@ -137,13 +137,13 @@ public class InGameScene : BaseSceneState
     {
         base.Entry();
 
+        _main.GameFinished = false;
         this.gameTime = GameManage.Instance.InGameTime;
     }
 
 
     public override void Execute()
     {
-        Debug.Log(_main.IsMatched);
         if (!this.Loaded || !_main.IsMatched) return;
 
         if (_timeText == null)
@@ -154,6 +154,7 @@ public class InGameScene : BaseSceneState
         this.gameTime -= Time.deltaTime;        // ゲーム時間
         if (this.gameTime < 0)
         {
+            _main.GameFinished = true;
             _main.LoadScene(new ResultScene(_main, "ResultScene"));
         }
 
@@ -234,6 +235,11 @@ public class RoomScene : BaseSceneState
 public class ResultScene : BaseSceneState
 {
     private Button _backLobbyButton;
+    private GameObject _winnerObject;
+    private GameObject _loserObject;
+    private string _playerName = "SamplePlayer";
+    private string _podsName = "AirPodsPro";
+
 
     public ResultScene(GameManage main, string sceneName)
     {
@@ -253,12 +259,21 @@ public class ResultScene : BaseSceneState
         if (!this.Loaded) return;
 
         if (_backLobbyButton == null)
-        {
-            _backLobbyButton = GameObject.Find("Canvas/PlayButtonGroup/MultiPlayButton").GetComponent<Button>();
-            _backLobbyButton.onClick.AddListener(() => {
-                _main.LoadScene(new LobbyScene(_main, "Lobby"));
-            });
+        {   // ボタンで画面遷移(-> Lobby)
+            _backLobbyButton = GameObject.Find("Canvas/ResultButtonGroup/BackLobbyButton").GetComponent<Button>();
+            _backLobbyButton.onClick.AddListener(this.GotoScene);
         }
+
+        // 勝敗
+        if(_loserObject == null || _winnerObject == null)
+        {
+            GetWinnter(_main.Winner);
+        }
+        else
+        {
+            Debug.Log("勝者：" + _winnerObject.name);
+        }
+
     }
 
     public override void Exit(SceneState next)
@@ -266,5 +281,31 @@ public class ResultScene : BaseSceneState
         base.Exit(next);
 
         next.Entry();
+    }
+
+
+    public void GetWinnter (WinnerState state)
+    {
+        switch(state)
+        {
+            case WinnerState.None:
+                break;
+
+            case WinnerState.Player:
+                _winnerObject = GameObject.Find(_playerName);
+                _loserObject = GameObject.Find(_podsName);
+                break;
+
+            case WinnerState.Pods:
+                _winnerObject = GameObject.Find(_podsName);
+                _loserObject = GameObject.Find(_playerName);
+                break;
+        }
+    }
+
+
+    public void GotoScene()
+    {
+        _main.LoadScene(new LobbyScene(_main, "Lobby"));
     }
 }
