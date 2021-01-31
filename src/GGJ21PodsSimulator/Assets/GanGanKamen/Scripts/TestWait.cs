@@ -52,10 +52,10 @@ namespace GanGanKamen.Wait
 
         }
 
-        public void SetCharacter(int number,int viewId)
+        public void SetCharacter(int number)
         {
-            if(viewId == photonView.ViewID)
-            _charaNum = number;
+            photonView.RPC("SetCharacterRPC", RpcTarget.All, number);
+           
         }
 
         public void GameStart()
@@ -76,6 +76,11 @@ namespace GanGanKamen.Wait
             meshRenderer.material = materials[matNum];
         }
 
+        [PunRPC]
+        private void SetCharacterRPC(int number)
+        {
+            _charaNum = number;
+        }
         private void KeyCtrl()
         {
             var moveX = Input.GetAxis("Horizontal");

@@ -992,11 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAudioClip: {fileID: 8300000, guid: efb8f133899a8674882e17b6932aef91, type: 3}
   selectedTransform: {fileID: 1938771484}
-  randAudioClipArray:
-  - {fileID: 8300000, guid: 9a2a79cfeb6be844080e178d712881f4, type: 3}
-  - {fileID: 8300000, guid: d8cbb88b868adb9459bf2ef6dd30d8a5, type: 3}
-  - {fileID: 8300000, guid: 6135ba2af9d830048a4cce8e743e53ec, type: 3}
-  - {fileID: 8300000, guid: efb8f133899a8674882e17b6932aef91, type: 3}
+  randAudioClipArray: []
 --- !u!1 &788492323
 GameObject:
   m_ObjectHideFlags: 0
