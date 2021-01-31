@@ -533,7 +533,6 @@ GameObject:
   m_Component:
   - component: {fileID: 454382042}
   - component: {fileID: 454382040}
-  - component: {fileID: 454382041}
   m_Layer: 5
   m_Name: GUICamera
   m_TagString: Untagged
@@ -584,14 +583,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &454382041
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 454382039}
-  m_Enabled: 1
 --- !u!224 &454382042
 RectTransform:
   m_ObjectHideFlags: 0
@@ -622,6 +613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106418222121601455, guid: 6556fcdd2fc02664a925a8d2b2083149,
+        type: 3}
+      propertyPath: InGameTime
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6098411579512564171, guid: 6556fcdd2fc02664a925a8d2b2083149,
         type: 3}
