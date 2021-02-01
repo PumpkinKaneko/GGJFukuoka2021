@@ -18,8 +18,8 @@ namespace GanGanKamen.Wait
         {
             roomUI.TextSet();
             var spawnhight = spawnPosition.position.y + PhotonNetwork.CountOfPlayersInRooms * 0.25f;
-            GameObject obj = PhotonNetwork.Instantiate("Prefabs/WaitTest", 
-                new Vector3(spawnPosition.position.x,spawnhight,spawnPosition.position.z), Quaternion.identity, 0);
+            GameObject obj = PhotonNetwork.Instantiate("Prefabs/WaitTest",
+                new Vector3(spawnPosition.position.x, spawnhight, spawnPosition.position.z), Quaternion.identity, 0);
             var waitScript = obj.GetComponent<TestWait>();
             waitScript.enabled = true;
             waitScript.Init(playerName);
@@ -30,7 +30,7 @@ namespace GanGanKamen.Wait
             roomUI.SetWaitPlayer(waitScript);
             _waitPlayer = waitScript;
             roomUI.Init();
-            
+
         }
 
         public void GameStart()
@@ -53,7 +53,7 @@ namespace GanGanKamen.Wait
         public override void OnMasterClientSwitched(Player newMasterClient)
         {
             base.OnMasterClientSwitched(newMasterClient);
-            if(newMasterClient == PhotonNetwork.LocalPlayer)
+            if (newMasterClient == PhotonNetwork.LocalPlayer)
             {
                 roomUI.StartButtonOn();
             }
@@ -66,19 +66,20 @@ namespace GanGanKamen.Wait
 
         private void Shuffle()
         {
-            var playerList = new List<GameObject>();
-            foreach(var obj in GameObject.FindGameObjectsWithTag("Player"))
+            var orderList = new List<int>();
+            var objs = GameObject.FindGameObjectsWithTag("Player");
+            for (int i = 0; i < objs.Length; i++)
             {
-                playerList.Add(obj);
+                orderList.Add(i);
             }
-            Debug.Log(GameObject.FindGameObjectsWithTag("Player").Length);
-            playerList = playerList.OrderBy(a => System.Guid.NewGuid()).ToList();
-            for(int i = 0; i < playerList.Count; i++)
+            orderList = orderList.OrderBy(a => System.Guid.NewGuid()).ToList();
+            var orderArray = orderList.ToArray();
+            for (int i = 0; i < objs.Length; i++)
             {
-                //var id = playerList[i].GetComponent<PhotonView>().ViewID;
-                playerList[i].GetComponent<TestWait>().SetCharacter(i);
+                objs[i].GetComponent<TestWait>().SetCharacter(orderArray[i], orderArray);
             }
         }
     }
 }
+
 

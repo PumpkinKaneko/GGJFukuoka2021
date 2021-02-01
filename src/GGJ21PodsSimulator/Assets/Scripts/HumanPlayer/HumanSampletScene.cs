@@ -16,17 +16,17 @@ public class HumanSampletScene : MonoBehaviourPunCallbacks
 
     public void Init(string playerName,int materialNum, int characterNumber)
     {
-        Debug.Log(characterNumber);
-        characterNumber = Random.Range(0, 2);
-        if(characterNumber == 0)
+        GameObject.FindGameObjectWithTag("Debug").
+                    GetComponent<LogMenu>().
+                    DebugLog("CharaNum = " + characterNumber.ToString());
+        //characterNumber = Random.Range(0, 2);
+        if (characterNumber == 0)
         {
             PhotonNetwork.Instantiate("Prefabs/human_player",
                 human_start_transform.position, human_start_transform.rotation);
         }
         else
         {
-            Debug.Log(characterNumber);
-            //Debug.Log(earPhone_start_transforms);
             PhotonNetwork.Instantiate("Prefabs/AirPods_player", earPhone_start_transforms[characterNumber].position, 
                 earPhone_start_transforms[characterNumber].rotation);
         }

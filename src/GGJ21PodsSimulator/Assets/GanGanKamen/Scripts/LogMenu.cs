@@ -6,25 +6,15 @@ public class LogMenu : MonoBehaviour
     [SerializeField]
     private Text m_textUI = null;
 
-    private void Awake()
+    private void Start()
     {
-        Application.logMessageReceived += OnLogMessage;
+        if (GameObject.FindGameObjectsWithTag("Debug").Length > 1) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnDestroy()
+    public void DebugLog(string msg)
     {
-        Application.logMessageReceived += OnLogMessage;
-    }
-
-    private void OnLogMessage(string i_logText, string i_stackTrace, LogType i_type)
-    {
-        if (string.IsNullOrEmpty(i_logText))
-        {
-            return;
-        }
-
-        m_textUI.text += i_logText;
+        m_textUI.text += "・" + msg + "\n";
     }
 
 }

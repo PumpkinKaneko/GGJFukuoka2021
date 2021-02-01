@@ -20,6 +20,7 @@ namespace GanGanKamen.Wait
         private string _playerName;
         private int _materialNum;
         private int _charaNum = 1;
+        private bool canStartGame = false;
         // Update is called once per frame
         void Update()
         {
@@ -52,10 +53,9 @@ namespace GanGanKamen.Wait
 
         }
 
-        public void SetCharacter(int number)
+        public void SetCharacter(int number,int[] order)
         {
-            photonView.RPC("SetCharacterRPC", RpcTarget.All, number);
-           
+            photonView.RPC("SetCharacterRPC", RpcTarget.All, number,order);
         }
 
         public void GameStart()
@@ -77,9 +77,18 @@ namespace GanGanKamen.Wait
         }
 
         [PunRPC]
-        private void SetCharacterRPC(int number)
+        private void SetCharacterRPC(int number,int[] order)
         {
-            _charaNum = number;
+            if (photonView.IsMine)
+            {
+                _charaNum = number;
+                GameObject.FindGameObjectWithTag("Debug").
+                    GetComponent<LogMenu>().
+                    DebugLog("SetCharacter" + number.ToString());
+            }
+            else GameObject.FindGameObjectWithTag("Debug").
+                    GetComponent<LogMenu>().
+                    DebugLog("otherCharacter" + number.ToString());
         }
         private void KeyCtrl()
         {
@@ -113,7 +122,6 @@ namespace GanGanKamen.Wait
                 new InGameScene(GameManage.Instance, "InGameScene"), UnityEngine.SceneManagement.LoadSceneMode.Single);
             PhotonNetwork.IsMessageQueueRunning = true;
             var stgmng = GameObject.Find("StageManager").GetComponent<HumanSampletScene>();
-            Debug.Log(_charaNum);
             stgmng.Init(PhotonNetwork.NickName, _materialNum,_charaNum);
             Destroy(gameObject);
         }
