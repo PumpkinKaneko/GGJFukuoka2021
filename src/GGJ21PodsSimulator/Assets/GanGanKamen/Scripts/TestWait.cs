@@ -5,6 +5,7 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
+
 namespace GanGanKamen.Wait
 {
     public class TestWait : MonoBehaviourPunCallbacks
@@ -21,12 +22,18 @@ namespace GanGanKamen.Wait
         private int _materialNum;
         private int _charaNum = 1;
         private bool canStartGame = false;
+        private bool startGame = false;
         // Update is called once per frame
         void Update()
         {
             if (photonView.IsMine == false) return;
             KeyCtrl();
             nameText.transform.parent.LookAt(cameraObj.transform);
+            if(canStartGame == true && startGame == false)
+            {
+                startGame = true;
+                GameStart();
+            }
         }
 
         public void Init(string playerName)
@@ -53,9 +60,9 @@ namespace GanGanKamen.Wait
 
         }
 
-        public void SetCharacter(int number,int[] order)
+        public void SetCharacter(int number)
         {
-            photonView.RPC("SetCharacterRPC", RpcTarget.All, number,order);
+            photonView.RPC("SetCharacterRPC", RpcTarget.All,number);
         }
 
         public void GameStart()
@@ -77,7 +84,7 @@ namespace GanGanKamen.Wait
         }
 
         [PunRPC]
-        private void SetCharacterRPC(int number,int[] order)
+        private void SetCharacterRPC(int number)
         {
             if (photonView.IsMine)
             {
@@ -85,6 +92,7 @@ namespace GanGanKamen.Wait
                 GameObject.FindGameObjectWithTag("Debug").
                     GetComponent<LogMenu>().
                     DebugLog("SetCharacter" + number.ToString());
+                canStartGame = true;
             }
             else GameObject.FindGameObjectWithTag("Debug").
                     GetComponent<LogMenu>().
@@ -116,6 +124,10 @@ namespace GanGanKamen.Wait
 
         private IEnumerator LoadSceneCoroutine()
         {
+            while(canStartGame == false)
+            {
+                yield return null;
+            }
             DontDestroyOnLoad(gameObject);
             PhotonNetwork.IsMessageQueueRunning = false;
             yield return GameManage.Instance.LoadSceneAsync(

@@ -34,9 +34,11 @@ namespace GanGanKamen.Wait
         }
 
         public void GameStart()
-        {
+        {           
+            GameObject.FindGameObjectWithTag("Debug").
+                   GetComponent<LogMenu>().
+                   DebugLog("GameStart");
             Shuffle();
-            _waitPlayer.GameStart();
         }
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -76,9 +78,10 @@ namespace GanGanKamen.Wait
             var orderArray = orderList.ToArray();
             for (int i = 0; i < objs.Length; i++)
             {
-                objs[i].GetComponent<TestWait>().SetCharacter(orderArray[i], orderArray);
+                objs[i].GetComponent<TestWait>().SetCharacter(orderArray[i]);
             }
         }
+
     }
 }
 

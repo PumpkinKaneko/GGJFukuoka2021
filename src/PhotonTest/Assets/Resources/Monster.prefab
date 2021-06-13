@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 4348579278412400936}
   - component: {fileID: 4348579278412400937}
   - component: {fileID: 5785805735426385477}
-  - component: {fileID: 9182009403212957970}
   m_Layer: 0
   m_Name: Monster
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 8140437920581424860}
   animator: {fileID: 8140437920590947516}
+  _name: 
 --- !u!114 &4348579278412400937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,25 +89,6 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &9182009403212957970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4348579278412400943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logLevel: 3
-  ignoreGlobalLogLevel: 0
-  recorderInUse: {fileID: 0}
-  speakerInUse: {fileID: 89738502117754988}
-  AutoCreateRecorderIfNotFound: 1
-  UsePrimaryRecorder: 1
-  SetupDebugSpeaker: 0
 --- !u!1 &4890193577227768198
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +99,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9135837992103368082}
   - component: {fileID: 1005415629087972218}
-  - component: {fileID: 89738502117754988}
   m_Layer: 0
   m_Name: Speaker
   m_TagString: Untagged
@@ -236,26 +216,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &89738502117754988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4890193577227768198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd7fea91fe63f4e1b884ef1e16a975c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logLevel: 3
-  ignoreGlobalLogLevel: 0
-  playbackOnlyWhenEnabled: 0
-  playDelayMs: -1
-  playbackDelaySettings:
-    MinDelaySoft: 200
-    MaxDelaySoft: 400
-    MaxDelayHard: 1000
 --- !u!114 &1531918144799699630
 MonoBehaviour:
   m_ObjectHideFlags: 0
